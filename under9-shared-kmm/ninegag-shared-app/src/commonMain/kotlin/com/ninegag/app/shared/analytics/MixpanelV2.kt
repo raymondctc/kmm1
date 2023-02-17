@@ -120,6 +120,7 @@ object _MixpanelInternal {
 			const val ReviewSavedPosts = "REVIEW_SAVED_POST_NOTI"
 			const val FeaturedPost = "FEATURED_POST"
 			const val BoardNoti = "BOARD_NOTI"
+			const val CommentPin = "COMMENT_PIN"
 		}
 	}
 
@@ -825,6 +826,15 @@ object _MixpanelInternal {
 		}
 	}
 
+	object PinType {
+		const val Key = "Pin Type"
+		val Values = _Values
+		object _Values {
+			const val Pin = "Pin"
+			const val Unpin = "Unpin"
+		}
+	}
+
 	object _AutoPlayOptionValues {
 		const val Always = "Always"
 		const val WiFiOnly = "Wi-Fi only"
@@ -873,6 +883,27 @@ object _MixpanelInternal {
 			const val SearchSuggestion = "Search Suggestion"
 			const val UserInput = "User Input"
 			const val UseTagButton = "Use Tag Button"
+		}
+	}
+
+	object PromptType {
+		const val Key = "Prompt Type"
+		val Values = _Values
+
+		object _Values {
+			const val PostPublished = "Post Published"
+			const val CommentPublished = "Comment Published"
+			const val NotificationSetting = "Notification Setting"
+		}
+	}
+
+	object ResponseType {
+		const val Key = "Response Type"
+		val Values = _Values
+
+		object _Values {
+			const val OptIn = "Opt-in"
+			const val MaybeLater = "Maybe later"
 		}
 	}
 
@@ -940,6 +971,9 @@ object MixpanelV2 {
 		const val CommentWarningShown = "Comment Warning Shown"
 		const val CommentFailed = "Comment Failed"
 		const val OPCommentHidden = "OP Comment Hidden"
+		const val PinCommentClicked = "Pin Comment Clicked"
+		const val PinCommentCompleted = "Pin Comment Completed"
+		const val PinCommentFailed = "Pin Comment Failed"
 		const val ViewCommentClicked = "View Comment Clicked"
 
 		@JvmField val PostAuthor = _MixpanelInternal.PostAuthor
@@ -952,6 +986,11 @@ object MixpanelV2 {
 		const val CommentFailedType = "Comment Failed Type"
 		const val CommentSensitiveType = "Comment Sensitive Type"
 		const val CommentAnonymity = "Comment Anonymity"
+		const val IsPinnedComment = "Is Pinned Comment"
+		const val WarningTriggered = "Warning Triggered"
+		const val AnnouncementShown = "Announcement Shown"
+		const val HasPinnedComment = "Has Pinned Comment"
+
 
 		@JvmField val FollowType = _MixpanelInternal.FollowType
 		@JvmField val Type = _MixpanelInternal.CommentType
@@ -965,6 +1004,8 @@ object MixpanelV2 {
 
 		@JvmField val UnmaskType = _MixpanelInternal.UnmaskType
 		@JvmField val SensitiveType = _MixpanelInternal.SensitiveType
+
+		@JvmField val PinType = _MixpanelInternal.PinType
 	}
 
 	object Membership {
@@ -1237,5 +1278,14 @@ object MixpanelV2 {
 	object Misc {
 		const val HelpShiftClicked = "HelpShift Clicked"
 		@JvmField val HelpShiftEntry = _MixpanelInternal.HelpShiftEntry
+	}
+
+	object NotificationReprompt {
+		const val NotificationRepromptTriggered = "Notification Re-prompt Triggered"
+		const val NotificationRepromptClicked = "Notification Re-prompt Clicked"
+
+		const val Date = "Date"
+		val PromptType = _MixpanelInternal.PromptType
+		val ResponseType = _MixpanelInternal.ResponseType
 	}
 }

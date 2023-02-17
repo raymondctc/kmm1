@@ -14,8 +14,6 @@ include(":ninegag-shared-app-test")
 // Library modules
 include(":under9-analytics-kmm")
 include(":under9-core-kmm")
-include(":under9-chat-kmm:shared")
-
 
 // Example app
 include(":under9-app-kmm")

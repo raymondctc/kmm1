@@ -1,5 +1,0 @@
-target 'iosApp' do
-  use_frameworks!
-  platform :ios, '11.0'
-  pod 'under9_chat_kmm', :path => '../shared'
-end
