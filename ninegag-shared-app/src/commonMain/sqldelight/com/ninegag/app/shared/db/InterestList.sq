@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS InterestEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    list_type TEXT NOT NULL,
+    image_url TEXT NOT NULL,
+    webp_url TEXT NOT NULL
+)
+;
+
+getList:
+SELECT * FROM InterestEntity
+;
+
+addToList:
+INSERT INTO InterestEntity(
+    name, list_type, image_url, webp_url
+)
+VALUES (?, ?, ?, ?)
+;
+
+clearList:
+DELETE FROM InterestEntity
+;

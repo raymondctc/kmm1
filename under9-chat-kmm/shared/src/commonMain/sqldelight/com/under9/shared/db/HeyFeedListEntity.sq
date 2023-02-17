@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS HeyFeedListEntity (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+channel_id TEXT NOT NULL UNIQUE,
+channel_title TEXT NOT NULL,
+receiver_id TEXT NOT NULL
+);
+
+insertHeyFeedListEntity:
+INSERT OR IGNORE INTO HeyFeedListEntity(id, channel_id, channel_title, receiver_id)
+VALUES (?, ?, ?, ?);
+
+selectAll:
+SELECT * FROM HeyFeedListEntity;

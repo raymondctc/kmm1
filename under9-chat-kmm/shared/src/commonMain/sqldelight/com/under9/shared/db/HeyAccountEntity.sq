@@ -1,0 +1,39 @@
+CREATE TABLE IF NOT EXISTS HeyAccountEntity (
+user_id TEXT NOT NULL,
+gender TEXT NOT NULL,
+user_token TEXT NOT NULL,
+token_expiry INTEGER NOT NULL,
+seconds_till_expiry INTEGER NOT NULL,
+notification_topic TEXT NOT NULL,
+stream_user_id TEXT,
+has_chat INTEGER AS Boolean DEFAULT 0,
+gag_hey_user_access_token TEXT NOT NULL UNIQUE,
+hometown TEXT NOT NULL
+);
+
+
+insertHeyAccount:
+INSERT INTO HeyAccountEntity(user_id, gender, user_token, token_expiry, seconds_till_expiry, notification_topic, stream_user_id, has_chat, gag_hey_user_access_token, hometown)
+VALUES ( ?, ?, ?,  ?,?, ?, ?, ?, ?, ?);
+
+getHeyAccountFromAccessToken:
+SELECT * FROM HeyAccountEntity
+WHERE gag_hey_user_access_token = ?;
+
+getHeyAccountFromUserId:
+SELECT * FROM HeyAccountEntity
+WHERE user_id = ?;
+
+updateHeyAccount:
+UPDATE HeyAccountEntity
+SET
+    gender = ?,
+    hometown = ?,
+    user_token = ?,
+    token_expiry = ?,
+    notification_topic = ?,
+    seconds_till_expiry = ?,
+    stream_user_id = ?,
+    has_chat = ?,
+    gag_hey_user_access_token = ?
+WHERE user_id = ?;

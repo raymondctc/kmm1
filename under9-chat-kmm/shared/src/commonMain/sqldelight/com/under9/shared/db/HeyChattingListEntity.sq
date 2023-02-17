@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS HeyChattingListEntity (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+channel_id TEXT NOT NULL UNIQUE,
+channel_title TEXT NOT NULL,
+receiver_id TEXT NOT NULL,
+sender_id TEXT NOT NULL,
+last_update_ts INTEGER NOT NULL,
+last_message TEXT,
+unread_count INTEGER
+);
