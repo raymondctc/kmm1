@@ -83,6 +83,14 @@
     <string name="postlist_uploaded_empty_desc">No posts</string>
     <string name="postlist_upvoted_empty_desc">No upvoted posts</string>
 
+    <!-- Notification -->
+    <string name="notif_dialog_postpushreprompt_title">Get notified to stay tuned</string>
+    <string name="notif_dialog_postpushreprompt_desc">Get real-time updates when someone upvotes or replies to your content to stay on top of communication.</string>
+    <string name="notif_dialog_postpushrepromptconfirm_btn">Turn On Notifications</string>
+    <string name="notif_dialog_postpushrepromptcancel_btn">Maybe Later</string>
+    <string name="notif_setting_postpushreprompt_title">Turn On Notifications</string>
+    <string name="notif_setting_postpushreprompt_btn">Turn On in Settings</string>
+
     <!-- Post upload -->
     <string name="post_snackbar_postShared">Post Shared.</string>
     <string name="post_snackbar_viewPost">View Post</string>
@@ -95,6 +103,9 @@
     <string name="comment_composer_placeholder_thread">Leave a reply...</string>
     <string name="comment_composer_submit_btn">Post Anonymously</string>
     <string name="comment_snackbar_comment_not_found">This comment does not exist.</string>
+    <string name="comment_tooltip_pinned_comment">Comment pinned by OP. Join the conversation!</string>
+    <string name="comment_snackbar_comment_no_long_available">Comment no longer available.</string>
+    <string name="comment_snackbar_pin_no_long_available">Pin no longer available.</string>
     <string name="comment_snackbar_comment_posted">Comment posted.</string>
     <string name="comment_snackbar_comment_view">View Comment</string>
 
