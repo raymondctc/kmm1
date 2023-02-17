@@ -1,3 +1,11 @@
+buildscript {
+    val mokoResourcesGeneratorVersion = shared.versions.mokoResourceGenerator.get()
+
+    dependencies {
+        classpath("dev.icerock.moko:resources-generator:$mokoResourcesGeneratorVersion")
+    }
+}
+
 plugins {
     //trick: for the same plugin versions in all sub-modules
     id("com.android.application").version(shared.versions.pluginGradle.get()).apply(false)

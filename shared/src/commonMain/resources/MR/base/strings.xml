@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Naming convention: {domain_prefix}_{component}_{desc}_{suffix_if_any}
+-->
+<resources>
+    <string name="sample_greeting">This is a shared string, greetings</string>
+</resources>

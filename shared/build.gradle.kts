@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -23,7 +24,12 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(shared.moko.resource.generator)
+                implementation(project(":under9-shared-kmm:under9-core-kmm"))
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -54,9 +60,19 @@ kotlin {
 
 android {
     namespace = "com.example.myapplication"
-    compileSdk = 33
+    compileSdk = shared.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
+        minSdk = shared.versions.minSdk.get().toInt()
+        targetSdk = shared.versions.targetSdk.get().toInt()
     }
+    sourceSets["main"].apply {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+        // FIXME: https://github.com/icerockdev/moko-resources/issues/353#issuecomment-1179713713
+        res.srcDir(File(buildDir, "generated/moko/androidMain/res"))
+    }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.under9.exampleapp.shared.res"
 }
