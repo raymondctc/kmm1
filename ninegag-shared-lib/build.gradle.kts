@@ -26,7 +26,6 @@ kotlin {
             export(project(":ninegag-shared-app"))
             export(project(":under9-analytics-kmm"))
             export(project(":under9-core-kmm"))
-            export(project(":under9-chat-kmm:shared"))
             export(shared.moko.resource.generator) // export correct artifact to use all classes of moko-resources directly from Swift
             xcf.add(this)
             linkerOpts.add("-lsqlite3")
@@ -71,7 +70,6 @@ kotlin {
             dependencies {
                 api(project(":under9-analytics-kmm"))
                 api(project(":under9-core-kmm"))
-                api(project(":under9-chat-kmm:shared"))
                 api(project(":ninegag-shared-app"))
                 api(shared.moko.resource.generator)
             }

@@ -19,18 +19,19 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(shared.bundles.stately)
-                api(shared.krypto)
-                api(shared.klock)
-                api(shared.bundles.sqldelight)
+                api(shared.bundles.koin)
                 api(shared.bundles.ktor)
-                api(shared.moko.resource.generator)
-                api(shared.napier)
+                api(shared.bundles.stately)
+                api(shared.bundles.sqldelight)
+                api(shared.eygraber.uri)
                 api(shared.kotlin.coroutines.core)
                 api(shared.kotlinx.serialization.json)
                 api(shared.kotlinx.datetime)
-                api(shared.bundles.koin)
+                api(shared.klock)
+                api(shared.krypto)
+                api(shared.moko.resource.generator)
                 api(shared.multiplatform.settings)
+                api(shared.napier)
             }
         }
         val commonTest by getting {

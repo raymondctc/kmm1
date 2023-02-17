@@ -6,7 +6,7 @@ crashlyticskios = "0.6.0"
 coroutines = "1.6.4"
 coroutinesNativeMt = "1.6.0-native-mt"
 dokka = "1.7.10"
-#eygraberUri = "0.0.9"
+eygraberUri = "0.0.9"
 
 kotlin = "1.7.20"
 kotlinxDatetime = "0.4.0"
@@ -42,7 +42,7 @@ plugin-sqldelight-gradle = { module = "com.squareup.sqldelight:gradle-plugin", v
 plugin-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 plugin-moko-resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "mokoResourceGenerator"}
 
-#eygraber-uri = { module = "com.eygraber:uri-kmp", version.ref = "eygraberUri" }
+eygraber-uri = { module = "com.eygraber:uri-kmp", version.ref = "eygraberUri" }
 crashlyticskios = { module = "co.touchlab:crashkios", version.ref = "crashlyticskios" }
 
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
