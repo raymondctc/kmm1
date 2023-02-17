@@ -1,0 +1,31 @@
+-- DELETE FROM HeyStatusEntity;
+-- DELETE FROM HeyAccountEntity;
+-- ALTER TABLE HeyAccountEntity ADD COLUMN hometown TEXT;
+-- ALTER TABLE HeyStatusEntity ADD COLUMN hometown TEXT;
+
+DROP TABLE IF EXISTS HeyStatusEntity;
+DROP TABLE IF EXISTS HeyAccountEntity;
+
+CREATE TABLE IF NOT EXISTS HeyAccountEntity (
+user_id TEXT NOT NULL,
+gender TEXT NOT NULL,
+user_token TEXT NOT NULL,
+token_expiry INTEGER NOT NULL,
+seconds_till_expiry INTEGER NOT NULL,
+notification_topic TEXT NOT NULL,
+stream_user_id TEXT,
+has_chat INTEGER AS Boolean DEFAULT 0,
+gag_hey_user_access_token TEXT NOT NULL UNIQUE,
+hometown TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS HeyStatusEntity (
+id TEXT NOT NULL PRIMARY KEY,
+user_id TEXT NOT NULL,
+gender TEXT NOT NULL,
+title TEXT NOT NULL,
+timestamp INTEGER NOT NULL,
+is_blocked INTEGER AS Boolean DEFAULT 0,
+is_reported INTEGER AS Boolean DEFAULT 0,
+hometown TEXT NOT NULL
+);

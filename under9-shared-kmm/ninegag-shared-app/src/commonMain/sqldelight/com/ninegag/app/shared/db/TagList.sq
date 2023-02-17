@@ -1,0 +1,161 @@
+CREATE TABLE IF NOT EXISTS TagListItemEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    tag_item_id INTEGER NOT NULL,
+    list_key TEXT NOT NULL,
+    fav_ts_order INTEGER,
+    recent_ts_order INTEGER,
+    hidden_ts_order INTEGER,
+    visited_count INTEGER,
+    UNIQUE (tag_item_id, list_key)
+)
+;
+
+CREATE INDEX IDX_TagListItemEntity_list_key ON TagListItemEntity(list_key)
+;
+
+CREATE TABLE IF NOT EXISTS TagItemEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    url TEXT NOT NULL UNIQUE,
+    tag_key TEXT NOT NULL,
+    is_sensitive INTEGER NOT NULL,
+    description TEXT
+)
+;
+CREATE INDEX IDX_TagItemEntity_tag_key ON TagItemEntity(tag_key)
+;
+
+CREATE TABLE IF NOT EXISTS TagListEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    list_key TEXT NOT NULL UNIQUE
+)
+;
+CREATE INDEX IDX_TagListEntity_list_key ON TagListEntity(list_key)
+;
+
+getTagListByKey:
+SELECT * FROM TagListEntity
+WHERE list_key = :list_key
+;
+
+getTagListItemByListKey:
+SELECT a.*, b.list_key, b.fav_ts_order, b.hidden_ts_order, b.recent_ts_order, b.visited_count
+FROM TagItemEntity a, TagListItemEntity b
+WHERE a.id == b.tag_item_id
+AND b.list_key IN :list_keys
+ORDER BY b.id
+LIMIT :limit
+;
+
+getTagListItemByListKeyDesc:
+SELECT a.*, b.list_key, b.fav_ts_order, b.hidden_ts_order, b.recent_ts_order, b.visited_count
+FROM TagItemEntity a, TagListItemEntity b
+WHERE a.id == b.tag_item_id
+AND b.list_key IN :list_keys
+ORDER BY b.id DESC
+LIMIT :limit
+;
+
+getTagListItemByTagKey:
+SELECT a.*, b.list_key, b.fav_ts_order, b.hidden_ts_order, b.recent_ts_order, b.visited_count
+FROM TagItemEntity a, TagListItemEntity b
+WHERE a.id == b.tag_item_id
+AND a.tag_key = :tag_key
+ORDER BY b.id
+;
+
+getTagListItemByTagKeyAndListKey:
+SELECT a.*, b.list_key, b.fav_ts_order, b.hidden_ts_order, b.recent_ts_order, b.visited_count
+FROM TagItemEntity a, TagListItemEntity b
+WHERE a.id == b.tag_item_id
+AND a.tag_key = :tag_key
+AND b.list_key = :list_key
+ORDER BY b.id
+;
+
+getTagListItemByTagUrlAndListKey:
+SELECT a.*, b.list_key, b.fav_ts_order, b.hidden_ts_order, b.recent_ts_order, b.visited_count
+FROM TagItemEntity a, TagListItemEntity b
+WHERE a.id == b.tag_item_id
+AND a.url = :url
+AND b.list_key = :list_key
+ORDER BY b.id
+;
+
+getTagListItemByUrl:
+SELECT a.*, b.list_key, b.fav_ts_order, b.hidden_ts_order, b.recent_ts_order
+FROM TagItemEntity a, TagListItemEntity b
+WHERE a.id == b.tag_item_id
+AND a.url = :url
+ORDER BY b.id
+;
+
+getTagByKey:
+SELECT * FROM TagItemEntity
+WHERE tag_key = :tag_key
+;
+
+getTagByUrl:
+SELECT * FROM TagItemEntity
+WHERE url = :url
+;
+
+getTagListItemById:
+SELECT * FROM TagListItemEntity
+WHERE tag_item_id = :id
+;
+
+addToTagList:
+INSERT OR REPLACE INTO TagListEntity(
+    list_key
+)
+VALUES (?)
+;
+
+addTagToListItem:
+INSERT OR REPLACE INTO TagListItemEntity(
+    tag_item_id,
+    list_key,
+    fav_ts_order,
+    recent_ts_order,
+    hidden_ts_order,
+    visited_count
+)
+VALUES (
+(SELECT id FROM TagItemEntity WHERE url = ?),
+?,
+?,
+?,
+?,
+?
+)
+;
+
+removeTagFromList:
+DELETE FROM TagListItemEntity
+WHERE list_key = :list_key
+AND tag_item_id = (SELECT id FROM TagItemEntity WHERE url = ?)
+;
+
+clearTagListItemByListKey:
+DELETE FROM TagListItemEntity
+WHERE list_key = :list_key
+;
+
+addTagItem:
+INSERT INTO TagItemEntity(
+    url, tag_key, is_sensitive, description
+)
+VALUES (?, ?, ?, ?)
+;
+
+replaceTagItemByKey:
+UPDATE TagItemEntity
+SET url = :url, tag_key = :new_tag_key, description = :description
+WHERE tag_key = ?
+;
+
+replaceTagItemByUrl:
+UPDATE TagItemEntity
+SET url = :url, tag_key = :new_tag_key, description = :description
+WHERE url = ?
+;

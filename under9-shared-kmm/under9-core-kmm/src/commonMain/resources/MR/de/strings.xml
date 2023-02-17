@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="my_string">Hallo Welt</string>
+    <string name="all_generic">%s</string>
+    <string name="ago_justNow">Jetzt</string>
+    <string name="ago_minute">%sMin.</string>
+    <string name="ago_hour">%sStd.</string>
+    <string name="ago_day">%sT.</string>
+</resources>

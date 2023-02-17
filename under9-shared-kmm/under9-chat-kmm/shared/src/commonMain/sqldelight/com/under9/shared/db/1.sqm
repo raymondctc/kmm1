@@ -1,0 +1,1 @@
+ALTER TABLE HeyAccountEntity ADD COLUMN seconds_till_expiry INTEGER;

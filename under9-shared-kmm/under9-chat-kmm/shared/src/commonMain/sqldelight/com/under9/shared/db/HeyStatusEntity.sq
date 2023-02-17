@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS HeyStatusEntity (
+id TEXT NOT NULL PRIMARY KEY,
+user_id TEXT NOT NULL,
+gender TEXT NOT NULL,
+title TEXT NOT NULL,
+timestamp INTEGER NOT NULL,
+is_blocked INTEGER AS Boolean DEFAULT 0,
+is_reported INTEGER AS Boolean DEFAULT 0,
+hometown TEXT NOT NULL
+);
+
+insertHeyStatus:
+INSERT OR IGNORE INTO HeyStatusEntity(id, user_id, gender, title, timestamp, is_blocked, is_reported, hometown)
+VALUES (?, ?, ?, ?, ?, ?, ? ,?);
+
+getHeyStateById:
+SELECT *
+FROM HeyStatusEntity
+WHERE id = ?;
+
+getHeyStatusesInIds:
+SELECT *
+FROM HeyStatusEntity
+WHERE id IN ?;
+
+getHeyStatusesInIdsExcludeBlockUsers:
+SELECT *
+FROM HeyStatusEntity
+WHERE id IN ?
+AND
+user_id NOT IN ?;
+
+updateHeyStatusByApi:
+UPDATE HeyStatusEntity
+SET user_id = ?,
+    gender = ?,
+    hometown = ?,
+    title = ?,
+    timestamp = ?
+WHERE id = ?;
+
+
+

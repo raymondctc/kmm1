@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Naming convention: {domain_prefix}_{component}_{desc}_{suffix_if_any}
+-->
+<resources>
+    <string name="all_9gagger">9GAGGER</string>
+    <string name="all_btn_ok">OK</string>
+    <string name="all_btn_cancel">Cancel</string>
+    <string name="all_btn_hide">Hide</string>
+    <string name="all_snackbar_block_user">You’ve blocked @%s.</string>
+    <string name="all_post">Post</string>
+    <string name="homecustomize_title">Customize with Tags</string>
+    <string name="homecustomize_hiddentags_desc">Posts from these tags will be filtered from Home page.</string>
+    <string name="navlist_header_favorites">Favorites</string>
+    <string name="navlist_header_hidden">Hidden</string>
+    <string name="navlist_header_othertags">Other Tags</string>
+    <string name="navlist_header_recents">Recents</string>
+    <string name="navlist_header_recentsclear_btn">Clear</string>
+    <string name="navlist_recents_cleardialog_desc">Clear all recents?</string>
+    <string name="navlist_recents_cleardialogconfirm_btn">Clear</string>
+    <string name="navlist_header_popular">Explore Popular Tags</string>
+    <!--  anonymous prompt  -->
+    <string name="postanonymous_prompt_title">Get ready to discover creators</string>
+    <string name="postanonymous_prompt_desc">In June, you\’ll be able to see who made a post and connect with them. \n\nIt\’s okay if you want to change your avatar and username anytime by editing your Profile.</string>
+
+    <string name="postanonymous_btn_make_my_post_anonymous">Make My Posts Anonymous</string>
+    <string name="postanonymous_btn_make_anonymous">Make Anonymous</string>
+    <string name="postanonymous_btn_make_visible">Make Public</string>
+
+    <string name="postanonymous_dialog_title">Make My Posts Anonymous</string>
+    <string name="postanonymous_dialog_desc">You can choose to make your old posts anonymous, so that no one will know who you are. \n\nThe change will take effect in June and cannot be undone.</string>
+
+    <string name="postanonymous_snack_anonymous">Your posts will be anonymous in June.</string>
+    <string name="postanonymous_snack_visible">Your posts will be public in June.</string>
+    <string name="post_tooltip_display_post_creator">Posts now show the original poster (OP) to help you discover creators.</string>
+    <!--  User profile  -->
+    <string name="userprofile_notexist_desc">This user does not exist.</string>
+    <string name="userprofile_notexistback_btn">Go back</string>
+
+    <string name="userprofile_postslist_empty_title">No Posts</string>
+    <string name="userprofile_postslist_empty_desc">Let’s make something creative for fun!</string>
+    <string name="userprofile_postslist_empty_btn_action">Post</string>
+
+    <!-- Upload -->
+    <string name="upload_sensitive_hint">Content containing suggestive, provocative or sexually explicit material will be removed.</string>
+    <string name="upload_anonymous_option_title">Post anonymously</string>
+    <string name="upload_tooltip_uploaded_before">Be in control over your content, use tags!</string>
+    <string name="upload_tooltip_not_uploaded_before">Use at least 1 relevant tag to be discovered easily.</string>
+    <string name="upload_violate_rules_dialog_edit">Edit Post</string>
+    <string name="upload_violate_rules_dialog_view_rules">View 9GAG Rules</string>
+    <string name="upload_error_dialog_title_smaller_image">Try a smaller image</string>
+    <string name="upload_error_dialog_title_smaller_gif">Try a smaller GIF</string>
+    <string name="upload_error_dialog_title_smaller_video">Try a smaller video</string>
+    <string name="upload_error_dialog_title_shorter_video">Try a shorter video</string>
+    <string name="upload_error_dialog_title_failed_media">Unable to use media</string>
+    <string name="upload_error_dialog_title_fallback">Unable to post</string>
+    <string name="upload_error_dialog_msg_smaller_image">The image is too large. Try again with a smaller image.</string>
+    <string name="upload_error_dialog_msg_smaller_gif">The GIF is too large. Try again with a smaller GIF.</string>
+    <string name="upload_error_dialog_msg_smaller_video">The file size of the video is too large. Try again with a smaller video.</string>
+    <string name="upload_error_dialog_msg_shorter_video">Each post is limited to 10 minutes of video. Try again with a shorter video.</string>
+    <string name="upload_error_dialog_msg_fallback">We are facing issues sharing this post. Try to post again later.</string>
+    <string name="upload_loading_dialog_msg">Sharing...</string>
+    <!--  Post  -->
+    <string name="post_menu_hide_post">Hide post</string>
+    <string name="post_dialog_hide_post_title">Hide Post</string>
+    <string name="post_dialog_hide_post_desc">You will no longer see, follow or receive notifications from this post. The action cannot be undone.</string>
+    <string name="post_dialog_btn_hide">Hide</string>
+    <string name="post_snackbar_hide_post">The post is hidden.</string>
+    <string name="postview_empty_block_title">You’ve blocked posts from @%s.</string>
+    <string name="postview_empty_hide_title">The post is hidden.</string>
+    <string name="post_snackbar_block_user">You’ve blocked @%s.</string>
+    <string name="post_dialog_block_user_title">Block @%s</string>
+    <string name="post_dialog_block_user_desc">You will no longer see posts, comments or receive notifications from @%s.</string>
+
+    <string name="post_header_tab_comments">Comments</string>
+    <string name="post_header_tab_related">Related</string>
+    <string name="post_tags">Tags</string>
+    <string name="post_tooltip_header_tab_related">Tap anytime to explore more similar posts</string>
+
+    <string name="postlist_comment_empty_desc">No commented posts</string>
+    <string name="postlist_saved_empty_desc">No saved posts</string>
+    <string name="postlist_upload_usetag_desc">Use Tag</string>
+    <string name="postlist_uploaded_empty_desc">No posts</string>
+    <string name="postlist_upvoted_empty_desc">No upvoted posts</string>
+
+    <!-- Post upload -->
+    <string name="post_snackbar_postShared">Post Shared.</string>
+    <string name="post_snackbar_viewPost">View Post</string>
+
+    <!--  Comments  -->
+    <string name="comment_dialog_hide_op_comment_title">Hide OP Comments</string>
+    <string name="comment_dialog_hide_op_comment_desc">You will no longer see, follow or receive notifications from all comments from the OP in this post. The action cannot be undone.</string>
+    <string name="comment_snackbar_hide_op">All OP comments are hidden.</string>
+    <string name="comment_composer_placeholder_comment">Leave a comment...</string>
+    <string name="comment_composer_placeholder_thread">Leave a reply...</string>
+    <string name="comment_composer_submit_btn">Post Anonymously</string>
+    <string name="comment_snackbar_comment_not_found">This comment does not exist.</string>
+    <string name="comment_snackbar_comment_posted">Comment posted.</string>
+    <string name="comment_snackbar_comment_view">View Comment</string>
+
+    <!--  Home  -->
+    <string name="home_top_tag_tooltip_notice">Explore recent best posts in the 9GAG community.</string>
+    <string name="home_trending_tag_tooltip_notice">Stay in the loop and discover posts rising in popularity.</string>
+    <string name="home_fresh_tag_tooltip_notice">Be the first to view new posts and vote on what should be seen by more people.</string>
+</resources>

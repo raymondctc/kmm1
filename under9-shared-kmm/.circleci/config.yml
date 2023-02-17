@@ -1,0 +1,214 @@
+version: 2.1
+orbs:
+  android: circleci/android@2.1.2
+  slack: circleci/slack@4.10.1
+
+references:
+  workspace_tmp: &workspace_tmp
+    /tmp
+
+skip_hostkey_checking: &skip_hostkey_checking
+  run:
+    name: Avoid hosts unknown for github
+    command: '[ -d ~/.ssh ] || mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config'
+setup_git: &setup_git
+  run:
+    name: Setup git
+    command: |
+      git config --global user.email "app9gag@9gag.com"
+      git config --global user.name "app9gag"
+
+checkout_ios_exported_repo: &checkout_ios_exported_repo
+  run:
+    name: Checkout under9-shared-kmm-export-ios
+    command: |
+      git clone git@github.com:9gag/under9-shared-kmm-export-ios.git
+
+jobs:
+  run-tests:
+    executor:
+      name: android/android-machine
+      resource-class: large
+      tag: 2021.10.1
+    steps:
+      - checkout
+      - run:
+          name: Run tests
+          command: |
+            ./gradlew :under9-core-kmm:test
+            ./gradlew :ninegag-shared-lib:test
+  build-xcframework:
+    macos:
+      xcode: 13.2.1
+    steps:
+      - checkout
+      - run:
+          name: Build XCFramework
+          command: |
+            mkdir -p /tmp/artifacts/
+            ./scripts/build_xcframework.sh
+            cp -R ninegag-shared-lib/build/XCFrameworks/ /tmp/artifacts
+            echo $CIRCLE_TAG > /tmp/artifacts/current_tagname.txt
+      - store_artifacts:
+          path: /tmp/artifacts/
+      - persist_to_workspace:
+          root: *workspace_tmp
+          paths:
+            - artifacts
+  build-xcframework-fake:
+    macos:
+      xcode: 13.2.1
+    steps:
+      - checkout
+      - run:
+          name: Build XCFramework
+          command: |
+            mkdir -p /tmp/artifacts/
+            echo $CIRCLE_BRANCH > /tmp/artifacts/current_tagname.txt
+      - store_artifacts:
+          path: /tmp/artifacts/
+      - persist_to_workspace:
+          root: *workspace_tmp
+          paths:
+            - artifacts
+  upload-artifacts-no-merge:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - *setup_git
+      - *skip_hostkey_checking
+      - *checkout_ios_exported_repo
+      - attach_workspace:
+          at: *workspace_tmp
+      - run:
+          name: Upload artifacts to under9-shared-kmm-export-ios
+          command: |
+            CURR_TAG=$(cat /tmp/artifacts/current_tagname.txt)
+            cd under9-shared-kmm-export-ios
+            git checkout master
+            git checkout -b $CURR_TAG
+            cp -R /tmp/artifacts/release ./
+            git add .
+            git commit -m "Artifact published by CI build number: ${CIRCLE_BUILD_NUM}"
+            git push -u origin $CURR_TAG
+            git rev-parse HEAD > /tmp/artifacts/curr_hash.txt
+  upload-artifacts:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - *setup_git
+      - *skip_hostkey_checking
+      - *checkout_ios_exported_repo
+      - attach_workspace:
+          at: *workspace_tmp
+      - run:
+          name: Upload artifacts to under9-shared-kmm-export-ios
+          command: |
+            CURR_TAG=$(cat /tmp/artifacts/current_tagname.txt)
+            cd under9-shared-kmm-export-ios
+            git checkout master
+            git checkout -b $CURR_TAG
+            cp -R /tmp/artifacts/release ./
+            git add .
+            git commit -m "Artifact published by CI build number: ${CIRCLE_BUILD_NUM}"
+            git checkout master
+            git merge $CURR_TAG -X theirs --no-ff --no-edit
+            git push origin master
+            git branch -D $CURR_TAG
+            git tag $CURR_TAG
+            git push origin $CURR_TAG
+            git rev-parse HEAD > /tmp/artifacts/curr_hash.txt
+      - store_artifacts:
+          path: /tmp/artifacts/
+      - persist_to_workspace:
+          root: *workspace_tmp
+          paths:
+            - artifacts
+  notify-artifacts:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: *workspace_tmp
+#      - run:
+#          name: Get latest hash of under9-shared-kmm-export-ios
+#          command: |
+#            CURR_HASH=$(cat /tmp/artifacts/curr_hash.txt)
+      - slack/notify:
+          event: always
+          channel: C0KK28Z0Q # #mobile channel ID
+          template: basic_success_1
+#          custom: |
+#            {
+#              "attachments": [
+#                {
+#                  "mrkdwn_in": ["text"],
+#                  "color": "#36a64f",
+#                  "text": "<!here> Published to under9-shared-kmm-export-ios successfully. Hash: `$CURR_HASH`"
+#                }
+#              ]
+#            }
+  notify-artifacts-no-merge:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: *workspace_tmp
+      - slack/notify:
+          event: always
+          channel: C0KK28Z0Q # #mobile channel ID
+          template: basic_success_1
+
+workflows:
+  build-all:
+    jobs:
+      - run-tests:
+          filters:
+            tags:
+              only: /.*/
+      - build-xcframework:
+          filters:
+            tags:
+              only: /.*/
+      - upload-artifacts-no-merge:
+          filters:
+            tags:
+              only:
+                - /^internal\/.*/
+                - /^milestone\/.*/
+            branches:
+              ignore: /.*/
+          requires:
+            - build-xcframework
+      - notify-artifacts-no-merge:
+          filters:
+            tags:
+              only:
+                - /^internal\/.*/
+                - /^milestone\/.*/
+            branches:
+              ignore: /.*/
+          context: slack-secrets
+          requires:
+            - upload-artifacts-no-merge
+      - upload-artifacts:
+          filters:
+            tags:
+              only:
+                - /^rc\/.*/
+                - /^release\/.*/
+            branches:
+              ignore: /.*/
+          requires:
+            - build-xcframework
+      - notify-artifacts:
+          filters:
+            tags:
+              only:
+                - /^rc\/.*/
+                - /^release\/.*/
+            branches:
+              ignore: /.*/
+          context: slack-secrets
+          requires:
+            - upload-artifacts

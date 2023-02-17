@@ -1,0 +1,16 @@
+PODS:
+  - KMM-Export-iOS (1.0.0)
+
+DEPENDENCIES:
+  - KMM-Export-iOS (from `../../../under9-shared-kmm-export-ios`)
+
+EXTERNAL SOURCES:
+  KMM-Export-iOS:
+    :path: "../../../under9-shared-kmm-export-ios"
+
+SPEC CHECKSUMS:
+  KMM-Export-iOS: f99669b226d30d04f0909ed4bc9dda81b96bf341
+
+PODFILE CHECKSUM: 669e16dcdb74e38b4bbc77cf4bd76ba82863a7f9
+
+COCOAPODS: 1.11.3
