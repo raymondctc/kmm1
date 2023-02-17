@@ -17,7 +17,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = jetpack.versions.composeCompiler.get()
     }
     packagingOptions {
         resources {
@@ -40,10 +40,11 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.1")
-    implementation("androidx.compose.foundation:foundation:1.3.1")
-    implementation("androidx.compose.material:material:1.3.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation(project(":under9-shared-kmm:under9-core-kmm"))
+    implementation(jetpack.compose.activity)
+    implementation(jetpack.compose.foundation)
+    implementation(jetpack.compose.material)
+    implementation(jetpack.compose.tooling)
+    implementation(jetpack.compose.tooling.preview)
+    implementation(jetpack.compose.ui)
 }
